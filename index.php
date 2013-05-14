@@ -1,10 +1,56 @@
 <?php
-//check if a variable was passed via url
-if ($_GET['r'])
-{
-  include 'redirect.php';
-  redirect_url($_GET['r']);
+$display="";
+
+function shorten($id, $content){
+	format_check($content);
+  //if the length of the input url is shorter than the maximum length of the 'shortened' url
+	if(strlen($content) < 23){
+		$display="<strong>Notice:</strong>The original url is shorter<br />";
+	}
+        if(is_dir($id)){
+                //pick a random number between 1000 and 9999
+                shorten(rand(1000, 9999));
+        }else{
+                //check
+                check_data($content);
+                make_dir($id);
+                write_data($id, $content);
+                echo $display."<p>Short url made at <a href='http://hourd.net/r/$id'>hourd.net/r/$id</a></p>";
+        }
 }
+function format_check($check){
+	if (strpos($subject,'http') == false) {
+		$subject="http://".$subject;
+	}
+}
+//todo: check if input url contains http or https properly
+function check_data($url){
+$check = "http";
+if(preg_match('http',$url)){
+	echo "Url does not contain $check";
+	$url  = "http://".$url;
+}
+        if (@file_get_contents($url)){
+                //echo "Valid url accepted";
+        }
+        else{
+                echo "Invalid url: '$url'!";
+                exit();
+        }
+}
+
+function make_dir($directory){
+        mkdir($directory);
+}
+
+function write_data($file, $content){
+        $file = "./".$file."/index.php";
+        $content="<?php header( 'Location: ".$content."' ) ; ?>";
+        $fp=fopen($file,'w');
+        fwrite($fp,$content);
+        fclose($fp);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +97,7 @@ if ($_GET['r'])
               <li><a href="/">Home</a></li>
               <li><a href="/about">About</a></li>
               <li><a href="/contact">Contact</a></li>
-              <li class="active"><a href="/s">Shortener</a></li>
+	      <li class="active"><a href="/r">Shortener</a></li>
             </ul>
           </div>
         </div>
@@ -62,20 +108,25 @@ if ($_GET['r'])
       <div class="hero-unit">
         <h3>Hourd's URL shortening service</h3>
         <p>
-    <form method="post" action="<?php echo $PHP_SELF;?>">
-    <table border="0">
-    <tr><td> URL:</td><td><input type="text" name="url" /></td></tr>
-    <tr><td> <input class="btn btn-primary btn-large" type="submit" value="Shorten" name="submit"/></td></tr>
-    </table>
-    </form>
-  </p>
-  <?php
+		<form method="post" action="<?php echo $PHP_SELF;?>">
+		<table border="0">
+		<tr><td> URL:</td><td><input type="text" name="url" /></td></tr>
+		<tr><td> <input class="btn btn-primary btn-large" type="submit" value="Shorten" name="submit"/></td></tr>
+		</table>
+		</form>
+	</p>
+	<?php
   //check if form has sent data back to this page
-  if(isset($_POST['submit']))
-  {
-    include 'shorten.php';
-  }
-  ?>
+	if(isset($_POST['submit']))
+	{
+	   $subject  = $_REQUEST['url'];
+		 if (strpos($subject,'<?') == true){
+		   echo "Tut tut tut";
+		   exit();
+		}
+	   shorten(rand(1000, 9999), $subject);
+	}
+	?>
       </div>
       <hr>
 

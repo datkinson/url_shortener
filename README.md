@@ -1,9 +1,9 @@
 url_shortener
 =============
 
-A url shortener using php and mysql database
+A url shortener using php and storing the shortened urls as php files with redirects in the header
 Also uses a default bootstrap style.
 The bootstrap repository can be found at http://twitter.github.io/bootstrap/
 
-Plans to use .htaccess to make the url shorter
-e.g. /?r=1234 -> /1234
+=============
+This is only a prototype created in a very short amount of time
