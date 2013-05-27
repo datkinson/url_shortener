@@ -23,7 +23,9 @@ function checkdb($url){
 }
 
 function writedb($url){
-	$sql = "insert into shorten (url) values('$url')";
+	$ip = $_SERVER['REMOTE_ADDR'];
+	$san_url = mysql_real_escape_string($url);
+	$sql = "insert into shorten (url, ip) values('$san_url', '$ip')";
 	mysql_query($sql) or die(mysql_error());
 	$id = mysql_insert_id();
 	return $id;
@@ -66,6 +68,7 @@ check_valid_url($request_url);
 
 $url_id = checkdb($request_url);
 //print result of shortening
-echo "<br /><a href='./?r=".$url_id."'>hourd.net/s/?r=".$url_id."</a>";
+//echo "<br /><a href='./?r=".$url_id."'>hourd.net/s/?r=".$url_id."</a>";
+echo "<br /><a href='/".$url_id."'>hourd.net/".$url_id."</a>";
 testdb($request_url);
 ?>

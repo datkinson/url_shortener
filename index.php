@@ -10,8 +10,8 @@ if ($_GET['r'])
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  <link rel="icon" 
-      type="image/png" 
+  <link rel="icon"
+      type="image/png"
       href="/favicon.png">
     <meta charset="utf-8">
     <title>Hourd's URL shortening service</title>
@@ -35,6 +35,21 @@ if ($_GET['r'])
     <![endif]-->
 
     <link rel="shortcut icon" href="/ico/favicon.png">
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-25878258-1']);
+  _gaq.push(['_setDomainName', 'hourd.net']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
   </head>
   <body>
     <div class="navbar navbar-inverse navbar-fixed-top">

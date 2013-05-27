@@ -1,8 +1,8 @@
 <?php
 //Connect to database
-$dbhost = 'host';
-$dbuser = 'user';
-$dbpass = 'password';
+$dbhost = '####';
+$dbuser = '####';
+$dbpass = '####';
 
 $db = mysql_connect($dbhost, $dbuser, $dbpass);
 if(! $db){
